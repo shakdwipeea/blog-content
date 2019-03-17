@@ -1,0 +1,123 @@
+#+TITLE: Clojure setup
+#+LAYOUT: post
+
+
+I will try to explain my process of setting up a clojure dev setup.
+
+** Setting up emacs
+
+For ideal dev experience, you want to be able interact with the running clojure
+process from your editor. This is done through a repl process. 
+
+[[https://gist.github.com/shakdwipeea/17bd7921391855a4f7933331826b3c53'][Here]] is my emacs init config. It uses cider and bunch of stuff to my dev experience 
+good. Some of them work, some of them don't ://.
+
+** A playground project
+
+I have setup a minimal playground project https://github.com/shakdwipeea/clj-minimal-playground for 
+playing around with clojure.
+
+Clone the project and run ~clj -m user.core~ command in the terminal. This will start a new nrepl 
+server. Now we want to hook up our emacs to the repl. For that:
+
+M-x cider-connect
+
+It will ask for host and port. you can specify the host as localhost and port as 9001.
+If you want to change these, you can fiddle around in dev/user/core.clj.
+
+At this point, the repl should be connected and you should be greeted with the cider greeting.
+
+#+BEGIN_SRC sh
+;; Connected to nREPL server - nrepl://localhost:9001
+;; CIDER 0.22.0snapshot, nREPL 0.6.0
+;; Clojure 1.10.0, Java 10.0.2
+;;     Docs: (doc function-name)
+;;           (find-doc part-of-name)
+;;   Source: (source function-name)
+;;  Javadoc: (javadoc java-object-or-class)
+;;     Exit: <C-c C-q>
+;;  Results: Stored in vars *1, *2, *3, an exception in *e;
+;; ======================================================================
+;; If you’re new to CIDER it is highly recommended to go through its
+;; manual first. Type <M-x cider-view-manual> to view it.
+;; In case you’re seeing any warnings you should consult the manual’s
+;; "Troubleshooting" section.
+;;
+;; Here are few tips to get you started:
+;;
+;; * Press <<f1> m> to see a list of the keybindings available (this
+;;   will work in every Emacs buffer)
+;; * Press <,> to quickly invoke some REPL command
+;; * Press <C-c C-z> to switch between the REPL and a Clojure file
+;; * Press <M-.> to jump to the source of something (e.g. a var, a
+;;   Java method)
+;; * Press <C-c C-d C-d> to view the documentation for something (e.g.
+;;   a var, a Java method)
+;; * Enable ‘eldoc-mode’ to display function & method signatures in the minibuffer.
+;; * Print CIDER’s refcard and keep it close to your keyboard.
+;;
+;; CIDER is super customizable - try <M-x customize-group cider> to
+;; get a feel for this. If you’re thirsty for knowledge you should try
+;; <M-x cider-drink-a-sip>.
+;;
+;; If you think you’ve encountered a bug (or have some suggestions for
+;; improvements) use <M-x cider-report-bug> to report it.
+;;
+;; Above all else - don’t panic! In case of an emergency - procure
+;; some (hard) cider and enjoy it responsibly!
+;;
+;; You can remove this message with the <M-x cider-repl-clear-help-banner> command.
+;; You can disable it from appearing on start by setting
+;; ‘cider-repl-display-help-banner’ to nil.
+;; ======================================================================
+user> 
+#+END_SRC
+
+*** Playing around
+
+Now open src/user/core.clj in your editor.
+
+Run C-k to load the file in repl.
+
+Place you cursor at this position:
+
+#+BEGIN_SRC clojure
+(ns clj-minimal-playground.core)
+
+;; function definition
+(defn plus [a]
+  (+ 1 2 a))
+
+#_(plus 12)█
+
+#+END_SRC
+
+Run C-x C-e, this should return 15. This command was to evaluate the preceeding form.
+You can also place your cursor anywhere and do C-c C-c to evaluate the top level form.
+
+** Key bindings:
+
+Some of the keybindings (arising out of my emacs config) that I use often. 
+
+| Key     | Description                    | Package    |
+|---------+--------------------------------+------------|
+| C-x C-e | Evaluate preceeding form       | cider      |
+|---------+--------------------------------+------------|
+| C-c C-k | Load current file in repl      | cider      |
+|---------+--------------------------------+------------|
+| C-c C-c | Evaluate top level form        | cider      |
+|---------+--------------------------------+------------|
+| C-k     | insert parentheses             | init.el    |
+|---------+--------------------------------+------------|
+| C-h     | git status and other git ops   | magit      |
+|---------+--------------------------------+------------|
+| C-c pp  | Select project                 | projectile |
+|---------+--------------------------------+------------|
+| C-c pf  | Select file in current project | projectile |
+|---------+--------------------------------+------------|
+
+
+
+
+
+
